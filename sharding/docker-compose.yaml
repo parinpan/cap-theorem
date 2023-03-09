@@ -1,0 +1,94 @@
+version: '3.9'
+services:
+    cassandra_a:
+        image: cassandra:4.0
+        container_name: cassandra_a
+        ports:
+            - 9995:9042
+        volumes:
+            - cassandra_a:/var/lib/cassandra
+        environment:
+            - CASSANDRA_CLUSTER_NAME=usu
+            - CASSANDRA_SEEDS=cassandra_a
+            - MAX_HEAP_SIZE=1G
+            - HEAP_NEWSIZE=256M
+        networks:
+            - cassandra-network
+    cassandra_b:
+        image: cassandra:4.0
+        container_name: cassandra_b
+        ports:
+            - 9996:9042
+        volumes:
+            - cassandra_b:/var/lib/cassandra
+        environment:
+            - CASSANDRA_CLUSTER_NAME=usu
+            - CASSANDRA_SEEDS=cassandra_a
+            - MAX_HEAP_SIZE=1G
+            - HEAP_NEWSIZE=256M
+        networks:
+            - cassandra-network
+        depends_on:
+            - cassandra_a
+    cassandra_c:
+        image: cassandra:4.0
+        container_name: cassandra_c
+        ports:
+            - 9997:9042
+        volumes:
+            - cassandra_c:/var/lib/cassandra
+        environment:
+            - CASSANDRA_CLUSTER_NAME=usu
+            - CASSANDRA_SEEDS=cassandra_a
+            - MAX_HEAP_SIZE=1G
+            - HEAP_NEWSIZE=256M
+        networks:
+            - cassandra-network
+        depends_on:
+            - cassandra_a
+    cassandra_d:
+        image: cassandra:4.0
+        container_name: cassandra_d
+        ports:
+            - 9998:9042
+        volumes:
+            - cassandra_d:/var/lib/cassandra
+        environment:
+            - CASSANDRA_CLUSTER_NAME=usu
+            - CASSANDRA_SEEDS=cassandra_a
+            - MAX_HEAP_SIZE=1G
+            - HEAP_NEWSIZE=256M
+        networks:
+            - cassandra-network
+        depends_on:
+            - cassandra_a
+    cassandra_e:
+        image: cassandra:4.0
+        container_name: cassandra_e
+        ports:
+            - 9999:9042
+        volumes:
+            - cassandra_e:/var/lib/cassandra
+        environment:
+            - CASSANDRA_CLUSTER_NAME=usu
+            - CASSANDRA_SEEDS=cassandra_a
+            - MAX_HEAP_SIZE=1G
+            - HEAP_NEWSIZE=256M
+        networks:
+            - cassandra-network
+        depends_on:
+            - cassandra_a
+volumes:
+    cassandra_a:
+        driver: local
+    cassandra_b:
+        driver: local
+    cassandra_c:
+        driver: local
+    cassandra_d:
+        driver: local
+    cassandra_e:
+        driver: local
+networks:
+  cassandra-network:
+    driver: bridge
